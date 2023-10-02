@@ -38,6 +38,8 @@ export default function ComponentCard({ card }) {
         "&:hover": {
           borderColor: theme.vars.palette.primary.outlinedHoverBorder,
           transform: "translateY(-2px)",
+          color: "#0B6BCB",
+          scale: 1.1,
         },
       })}
     >

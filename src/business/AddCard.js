@@ -17,6 +17,7 @@ import { Switch } from "@mui/material";
 import EditCard from "./EditCard";
 import { structureCard } from "./structureCard";
 import { dark, light } from "../components/UI/features/theme";
+import { TOKEN } from "../api/token";
 
 //export const CardContext = createContext();
 
@@ -74,15 +75,12 @@ export default function AddCard() {
       card[s.name] = elements[s.name].value;
     });
 
-    fetch(
-      `https://api.shipap.co.il/business/cards?token=0de20742-47dc-11ee-8ead-14dda9d4a5f0`,
-      {
-        credentials: "include",
-        method: "POST",
-        headers: { "Content-type": "application/json" },
-        body: JSON.stringify(card),
-      }
-    )
+    fetch(`https://api.shipap.co.il/business/cards?${TOKEN}`, {
+      credentials: "include",
+      method: "POST",
+      headers: { "Content-type": "application/json" },
+      body: JSON.stringify(card),
+    })
       .then((res) => res.json())
       .then((data) => {
         setCard(data);

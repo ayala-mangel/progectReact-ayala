@@ -2,6 +2,7 @@ import React, { useContext, useState } from "react";
 import { GeneralContext } from "../App";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { useLocation } from "react-router-dom";
+import { TOKEN } from "../api/token";
 
 export default function RemoveCard({ card }) {
   const { setLoader, cards, setCards } = useContext(GeneralContext);
@@ -15,7 +16,7 @@ export default function RemoveCard({ card }) {
     try {
       // Send a DELETE request to the server to delete the card
       const response = await fetch(
-        `https://api.shipap.co.il/business/cards/${id}?token=0de20742-47dc-11ee-8ead-14dda9d4a5f0`,
+        `https://api.shipap.co.il/business/cards/${id}?${TOKEN}`,
         {
           credentials: "include",
           method: "DELETE",

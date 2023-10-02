@@ -20,6 +20,7 @@ import Joi from "joi";
 import { GeneralContext } from "../App";
 import { structureClient } from "./structureClient";
 import { dark, light } from "../components/UI/features/theme";
+import { TOKEN } from "../api/token";
 
 //const defaultTheme = createTheme();
 
@@ -150,15 +151,12 @@ export default function Signup() {
       return; // Exit early if validation fails
     }
     console.log(obj);
-    fetch(
-      `https://api.shipap.co.il/clients/signup?token=0de20742-47dc-11ee-8ead-14dda9d4a5f0`,
-      {
-        credentials: "include",
-        method: "POST",
-        headers: { "Content-type": "application/json" },
-        body: JSON.stringify(),
-      }
-    )
+    fetch(`https://api.shipap.co.il/clients/signup?${TOKEN}`, {
+      credentials: "include",
+      method: "POST",
+      headers: { "Content-type": "application/json" },
+      body: JSON.stringify(),
+    })
       .then(async (res) => {
         if (res.ok) {
           console.log(res.status);

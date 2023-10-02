@@ -12,6 +12,7 @@ import { useContext, useState } from "react";
 import { RoleType } from "../components/header/Navbar";
 import Joi from "joi";
 import { dark, light } from "../components/UI/features/theme";
+import { TOKEN } from "../api/token";
 
 //const defaultTheme = createTheme();
 
@@ -77,18 +78,15 @@ export default function Login() {
     const data = new FormData(event.currentTarget);
     setLoader(true);
 
-    fetch(
-      `https://api.shipap.co.il/clients/login?token=0de20742-47dc-11ee-8ead-14dda9d4a5f0`,
-      {
-        credentials: "include",
-        method: "POST",
-        headers: { "Content-type": "application/json" },
-        body: JSON.stringify({
-          email: data.get("email"),
-          password: data.get("password"),
-        }),
-      }
-    )
+    fetch(`https://api.shipap.co.il/clients/login?${TOKEN}`, {
+      credentials: "include",
+      method: "POST",
+      headers: { "Content-type": "application/json" },
+      body: JSON.stringify({
+        email: data.get("email"),
+        password: data.get("password"),
+      }),
+    })
       .then((res) => {
         if (res.ok) {
           return res.json();

@@ -18,11 +18,12 @@ import {
 import MenuIcon from "@mui/icons-material/Menu";
 import { Link, useNavigate, useResolvedPath } from "react-router-dom";
 import { GeneralContext } from "../../App";
-import SearchIcon from "@mui/icons-material/Search";
+
 import { createTheme, ThemeProvider } from "@mui/material";
 import { dark, light } from "../UI/features/theme";
 import { DarkMode, LightMode } from "@mui/icons-material";
 import { Sheet } from "@mui/joy";
+import SearchBar from "./SearchBar";
 
 export const RoleType = {
   none: 0,
@@ -81,7 +82,6 @@ export default function Navbar() {
     useContext(GeneralContext);
   const navigate = useNavigate();
   const path = useResolvedPath().pathname;
-  const [query, setQuery] = useState("");
 
   const handledark = () => {
     setIsDark((prevIsDark) => !prevIsDark);
@@ -226,24 +226,7 @@ export default function Navbar() {
                 ))}
             </Box>
             <Box x={{ display: { xs: "inline-flex", md: "none" } }}>
-              <FormControl variant="standard">
-                <OutlinedInput
-                  onChange={(event) => {
-                    setQuery(event.target.value);
-                  }}
-                  id="search"
-                  sx={{ backgroundColor: "#e3f2fd" }}
-                  placeholder="Search"
-                  size="small"
-                  endAdornment={
-                    <InputAdornment position="end">
-                      <IconButton edge="end">
-                        <SearchIcon />
-                      </IconButton>
-                    </InputAdornment>
-                  }
-                />
-              </FormControl>
+              <SearchBar />
             </Box>
             <IconButton onClick={handledark} sx={{ p: 1, paddingLeft: 2 }}>
               {isDark ? <LightMode /> : <DarkMode />}

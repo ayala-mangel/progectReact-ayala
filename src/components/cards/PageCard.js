@@ -14,11 +14,9 @@ import { GeneralContext } from "../../App";
 import Cards from "./Cards";
 import SnackbarCom from "../SnackbarCom";
 import { dark, light } from "../UI/features/theme";
+import { search } from "../header/SearchBar";
 
-export default function PageCard() {
-  const { cards, setCards, setLoader, isDark } = useContext(GeneralContext);
-  const navigate = useNavigate();
-
+export default function PageCard({ card }) {
   /*   const addCardExample = () => {
     const card = {
       id: "1",
@@ -58,34 +56,14 @@ export default function PageCard() {
   }; */
 
   // addCardExample();
-  useEffect(() => {
-    setLoader(true);
-    fetch(
-      `https://api.shipap.co.il/cards?token=0de20742-47dc-11ee-8ead-14dda9d4a5f0`,
-      {
-        credentials: "include",
-      }
-    )
-      .then((res) => res.json())
-      .then((data) => {
-        setCards(data);
-      })
-      .catch((err) => {
-        SnackbarCom("No Cards Availible");
-      })
-      .finally(() => {
-        setLoader(false);
-      });
-  }, []);
 
-  console.log(cards);
   return (
     //<ThemeProvider theme={isDark ? dark : light}>
     <Container sx={{ margin: "auto", alignItems: "center" }}>
       <Typography variant="h2" sx={{ textAlign: "center" }}>
         All Cards
       </Typography>
-      <Cards />
+      <Cards card={card} />
     </Container>
     // </ThemeProvider>
   );

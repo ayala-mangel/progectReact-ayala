@@ -12,6 +12,7 @@ import Button from "@mui/material/Button";
 import { useLocation } from "react-router-dom";
 import { structureCard } from "./structureCard";
 import { dark, light } from "../components/UI/features/theme";
+import { TOKEN } from "../api/token";
 
 //const defaultTheme = createTheme();
 
@@ -63,15 +64,12 @@ export default function EditCard() {
 
     setLoader(true);
 
-    fetch(
-      `https://api.shipap.co.il/business/cards/${id}?token=0de20742-47dc-11ee-8ead-14dda9d4a5f0`,
-      {
-        credentials: "include",
-        method: "PUT",
-        headers: { "Content-type": "application/json" },
-        body: JSON.stringify(editCard),
-      }
-    )
+    fetch(`https://api.shipap.co.il/business/cards/${id}?${TOKEN}`, {
+      credentials: "include",
+      method: "PUT",
+      headers: { "Content-type": "application/json" },
+      body: JSON.stringify(editCard),
+    })
       .then((data) => {
         console.log("API Response:", data);
         //snackbar();

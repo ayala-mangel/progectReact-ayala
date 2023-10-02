@@ -8,6 +8,7 @@ import SnackbarCom from "./components/SnackbarCom";
 import { createTheme, ThemeProvider } from "@mui/material";
 import { dark, light } from "./components/UI/features/theme";
 import Footer from "./components/footer/Footer";
+import CustomizedBreadcrumbs from "./components/header/coockies";
 export const GeneralContext = createContext();
 
 function App() {
@@ -18,6 +19,7 @@ function App() {
   const [cards, setCards] = useState([]);
   const [userPermissions, setUserPermissions] = useState([]);
   const [isDark, setIsDark] = useState(false);
+  const [searchWord, setSearchWord] = useState("");
   //const [currentMode, setCurrentMode] = useState(light);
 
   /* useEffect(() => {
@@ -93,14 +95,16 @@ function App() {
         userPermissions,
         setIsDark,
         isDark,
+        searchWord,
+        setSearchWord,
       }}
     >
       <Navbar />
 
       <Router />
-      <Footer />
       {loader && <Loader />}
       {snackbarText && <SnackbarCom text={snackbarText} />}
+      <Footer />
     </GeneralContext.Provider>
   );
 }

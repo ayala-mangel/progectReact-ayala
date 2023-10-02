@@ -9,6 +9,7 @@ import EditCard from "./business/EditCard";
 import FavCards from "./pages/FavCards";
 import MyCards from "./pages/MyCards";
 import Account from "./users/Account";
+import Cards from "./components/cards/Cards";
 
 export default function Router() {
   return (

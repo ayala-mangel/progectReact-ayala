@@ -4,6 +4,7 @@ import { hover } from "@testing-library/user-event/dist/hover";
 import React, { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { GeneralContext } from "../../App";
+import { TOKEN } from "../../api/token";
 
 export default function AddFavoriteCard({ card }) {
   const [isLike, setIsLike] = useState(false);
@@ -22,13 +23,10 @@ export default function AddFavoriteCard({ card }) {
 
     const url = isLike ? "unfavorite" : "favorite";
 
-    fetch(
-      `https://api.shipap.co.il/cards/${card.id}/${url}?token=0de20742-47dc-11ee-8ead-14dda9d4a5f0`,
-      {
-        credentials: "include",
-        method: "PUT",
-      }
-    )
+    fetch(`https://api.shipap.co.il/cards/${card.id}/${url}?${TOKEN}`, {
+      credentials: "include",
+      method: "PUT",
+    })
       .then((res) => {
         if (!res.ok) {
           throw new Error("Network response was not ok");

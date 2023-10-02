@@ -15,6 +15,7 @@ import Switch from "@mui/material/Switch";
 import { FormControlLabel, snackbarClasses } from "@mui/material";
 import { structureClient } from "./structureClient";
 import { dark, light } from "../components/UI/features/theme";
+import { TOKEN } from "../api/token";
 
 const defaultTheme = createTheme();
 
@@ -101,7 +102,7 @@ export default function Account() {
 
     try {
       const response = await fetch(
-        `https://api.shipap.co.il/clients/update?token=0de20742-47dc-11ee-8ead-14dda9d4a5f0`,
+        `https://api.shipap.co.il/clients/update?${TOKEN}`,
         {
           credentials: "include",
           method: "PUT",
