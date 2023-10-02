@@ -2,7 +2,7 @@ import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
-import Button from "@mui/material/Button";
+
 import { useContext, useState } from "react";
 import {
   Avatar,
@@ -22,8 +22,11 @@ import { GeneralContext } from "../../App";
 import { createTheme, ThemeProvider } from "@mui/material";
 import { dark, light } from "../UI/features/theme";
 import { DarkMode, LightMode } from "@mui/icons-material";
-import { Sheet } from "@mui/joy";
+import { Button, CssVarsProvider, Sheet } from "@mui/joy";
 import SearchBar from "./SearchBar";
+import FavoriteIcon from "@mui/icons-material/Favorite";
+import RecentActorsIcon from "@mui/icons-material/RecentActors";
+import InfoIcon from "@mui/icons-material/Info";
 
 export const RoleType = {
   none: 0,
@@ -78,8 +81,17 @@ const settings = [
 export default function Navbar() {
   const [anchorElNav, setAnchorElNav] = useState(null);
   const [anchorElUser, setAnchorElUser] = useState(null);
-  const { user, roleType, setUser, setRoleType, setLoader, isDark, setIsDark } =
-    useContext(GeneralContext);
+  const {
+    user,
+    roleType,
+    setUser,
+    setRoleType,
+    setLoader,
+    isDark,
+    setIsDark,
+    mode,
+    setMode,
+  } = useContext(GeneralContext);
   const navigate = useNavigate();
   const path = useResolvedPath().pathname;
 
@@ -122,7 +134,7 @@ export default function Navbar() {
   };
 
   return (
-    <ThemeProvider theme={isDark ? dark : light}>
+    <Box>
       <Card
         // variant="solid"
         color="red"
@@ -217,7 +229,7 @@ export default function Navbar() {
                         color: "white",
                         display: "block",
                         backgroundColor:
-                          page.route === path ? "cornflowerblue" : "",
+                          page.route === path ? "cornflowerblue" : "#1976D2",
                       }}
                     >
                       {page.title}
@@ -278,6 +290,6 @@ export default function Navbar() {
           </Toolbar>
         </AppBar>
       </Card>
-    </ThemeProvider>
+    </Box>
   );
 }

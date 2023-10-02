@@ -1,22 +1,12 @@
-import React, { useContext, useEffect, useState } from "react";
-import ComponentCard from "./ComponentCard";
-import {
-  Container,
-  Grid,
-  SpeedDial,
-  SpeedDialIcon,
-  ThemeProvider,
-  Typography,
-} from "@mui/material";
-import AddCard from "../../business/AddCard";
-import { useNavigate } from "react-router-dom";
+import React, { useContext } from "react";
+import { Container, Typography } from "@mui/material";
 import { GeneralContext } from "../../App";
 import Cards from "./Cards";
-import SnackbarCom from "../SnackbarCom";
-import { dark, light } from "../UI/features/theme";
-import { search } from "../header/SearchBar";
+import { useColorScheme } from "@mui/joy/styles";
 
-export default function PageCard({ card }) {
+export default function PageCards({ card }) {
+  const { isDark } = useContext(GeneralContext);
+
   /*   const addCardExample = () => {
     const card = {
       id: "1",
@@ -59,12 +49,13 @@ export default function PageCard({ card }) {
 
   return (
     //<ThemeProvider theme={isDark ? dark : light}>
+
     <Container sx={{ margin: "auto", alignItems: "center" }}>
       <Typography variant="h2" sx={{ textAlign: "center" }}>
         All Cards
       </Typography>
       <Cards card={card} />
     </Container>
-    // </ThemeProvider>
+    //</ThemeProvider>
   );
 }

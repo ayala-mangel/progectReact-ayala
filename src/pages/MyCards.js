@@ -1,11 +1,5 @@
-import {
-  Container,
-  SpeedDial,
-  SpeedDialIcon,
-  ThemeProvider,
-  Typography,
-} from "@mui/material";
-import React, { useContext } from "react";
+import { Container, SpeedDial, SpeedDialIcon, Typography } from "@mui/material";
+import React, { useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Cards from "../components/cards/Cards";
 import { GeneralContext } from "../App";
@@ -13,15 +7,18 @@ import { TOKEN } from "../api/token";
 
 export default function MyCards({ card }) {
   const navigate = useNavigate();
-  const { cards, setCards } = useContext(GeneralContext);
-
-  fetch(`https://api.shipap.co.il/business/cards?${TOKEN}`, {
-    credentials: "include",
-  })
-    .then((res) => res.json())
-    .then((data) => {
-      setCards(data);
-    });
+  const { setCards, setLoader } = useContext(GeneralContext);
+  useEffect(() => {
+    setLoader(true);
+    fetch(`https://api.shipap.co.il/business/cards?${TOKEN}`, {
+      credentials: "include",
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        setCards(data);
+      })
+      .finally(() => setLoader(false));
+  }, [setCards, setLoader]);
 
   return (
     <Container sx={{ margin: "auto", alignItems: "center" }}>

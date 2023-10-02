@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import Card from "@mui/joy/Card";
+
 import CardContent from "@mui/joy/CardContent";
 import CardOverflow from "@mui/joy/CardOverflow";
 import Divider from "@mui/joy/Divider";
@@ -13,7 +13,7 @@ import { sizing } from "@mui/system";
 import DeleteIcon from "@mui/icons-material/Delete";
 import RemoveCard from "../../business/RemoveCard";
 import { CardHeader } from "@mui/material";
-import { Box } from "@mui/joy";
+import { Box, Card } from "@mui/joy";
 import IconsCard from "./IconsCard";
 import { RoleType, checkPermissions } from "../header/Navbar";
 import { GeneralContext } from "../../App";

@@ -3,18 +3,18 @@ import React from "react";
 import Login from "./users/Login";
 import Signup from "./users/Signup";
 import About from "./pages/About";
-import PageCard from "./components/cards/PageCard";
 import AddCard from "./business/AddCard";
 import EditCard from "./business/EditCard";
 import FavCards from "./pages/FavCards";
 import MyCards from "./pages/MyCards";
 import Account from "./users/Account";
 import Cards from "./components/cards/Cards";
+import PageCards from "./components/cards/PageCards";
 
 export default function Router() {
   return (
     <Routes>
-      <Route path="/" element={<PageCard />} />
+      <Route path="/" element={<PageCards />} />
       <Route path="/about" element={<About />} />
       <Route path="/login" element={<Login />} />
       <Route path="/signup" element={<Signup />} />

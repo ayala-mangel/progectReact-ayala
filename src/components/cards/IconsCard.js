@@ -38,7 +38,7 @@ export default function IconsCard({ card }) {
           className="icon"
           aria-label="Edit card"
           size="sm"
-          //variant="solid"
+          variant="solid"
           color="primary"
           sx={{
             position: "absolute",
@@ -60,7 +60,7 @@ export default function IconsCard({ card }) {
           className="icon"
           aria-label="Delete"
           size="sm"
-          // variant="solid"
+          variant="solid"
           sx={{
             color: "#FBFCFE",
             backgroundColor: "#0B0D0E",

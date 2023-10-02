@@ -43,7 +43,7 @@ export default function AddFavoriteCard({ card }) {
       className="icon"
       aria-label="Like minimal photography"
       size="sm"
-      //variant="solid"
+      variant="solid"
       color={isLike ? "danger" : "neutral"}
       sx={{
         position: "absolute",

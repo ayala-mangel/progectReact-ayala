@@ -1,14 +1,14 @@
 import "./App.css";
-import { createContext, useEffect, useState } from "react";
-import Navbar, { RoleType, checkPermissions } from "./components/header/Navbar";
+import { createContext, useEffect, useLayoutEffect, useState } from "react";
+import Navbar, { RoleType } from "./components/header/Navbar";
 import Router from "./Router";
 import Loader from "./components/Loader";
-import ComponentCard from "./components/cards/ComponentCard";
 import SnackbarCom from "./components/SnackbarCom";
-import { createTheme, ThemeProvider } from "@mui/material";
-import { dark, light } from "./components/UI/features/theme";
 import Footer from "./components/footer/Footer";
-import CustomizedBreadcrumbs from "./components/header/coockies";
+
+const useEnhancedEffect =
+  typeof window !== "undefined" ? useLayoutEffect : useEffect;
+
 export const GeneralContext = createContext();
 
 function App() {
@@ -20,11 +20,17 @@ function App() {
   const [userPermissions, setUserPermissions] = useState([]);
   const [isDark, setIsDark] = useState(false);
   const [searchWord, setSearchWord] = useState("");
+  /*  const { mode, setMode } = useColorScheme();
+  const [mounted, setMounted] = useState(false); */
   //const [currentMode, setCurrentMode] = useState(light);
 
   /* useEffect(() => {
     setCurrentMode(isDark ? dark : light);
   }, [isDark]); */
+
+  /*   useEffect(() => {
+    setMounted(true);
+  }, []); */
 
   const snackbar = (text) => {
     setSnackbarText(text);
