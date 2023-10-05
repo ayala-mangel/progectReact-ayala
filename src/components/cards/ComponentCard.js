@@ -15,7 +15,6 @@ import RemoveCard from "../../business/RemoveCard";
 import { CardHeader } from "@mui/material";
 import { Box, Card } from "@mui/joy";
 import IconsCard from "./IconsCard";
-import { RoleType, checkPermissions } from "../header/Navbar";
 import { GeneralContext } from "../../App";
 
 export default function ComponentCard({ card }) {
@@ -61,7 +60,7 @@ export default function ComponentCard({ card }) {
         <IconsCard
           card={card}
           //roleType={roleType}
-          permissions={userPermissions}
+          //permissions={userPermissions}
         />
       </CardOverflow>
       <CardContent sx={{ pb: 1 }}>

@@ -21,27 +21,13 @@ import { GeneralContext } from "../App";
 import { structureClient } from "./structureClient";
 import { dark, light } from "../components/UI/features/theme";
 import { TOKEN } from "../api/token";
-
-//const defaultTheme = createTheme();
+import { useSnackbar } from "../components/SnackbarCom";
 
 export default function Signup() {
   const [user, setUser] = useState({});
   const { setLoader, isDark } = useContext(GeneralContext);
   const navigate = useNavigate();
-
-  /*  const defaultTheme = createTheme(
-    isDark
-      ? {
-          palette: {
-            mode: "dark",
-          },
-        }
-      : {
-          palette: {
-            mode: "light",
-          },
-        }
-  ); */
+  const snackbar = useSnackbar();
 
   const schema = Joi.object({
     firstName: Joi.string()
@@ -81,49 +67,6 @@ export default function Signup() {
   const validate = (formData) => {
     return schema.validate(formData, { abortEarly: false });
   };
-
-  /* const handleSubmit = (ev) => {
-    ev.preventDefault();
-
-    const elements = ev.target.elements;
-
-    structureClient.forEach((s) => {
-      if (s.type === "boolean") {
-        user[s.name] = elements[s.name].value === "on";
-      } else {
-        user[s.name] = elements[s.name].value;
-      }
-    });
-
-    setLoader(true);
-
-    fetch(
-      `https://api.shipap.co.il/clients/signup?token=0de20742-47dc-11ee-8ead-14dda9d4a5f0`,
-      {
-        credentials: "include",
-        method: "POST",
-        headers: { "Content-type": "application/json" },
-        body: JSON.stringify(user),
-      }
-    )
-      .then((res) => {
-        if (res.ok) {
-          return res.json();
-        } else {
-          return res.text().then((x) => {
-            throw new Error(x);
-          });
-        }
-      })
-      .then((data) => {
-        setUser(data);
-        navigate("/login");
-      })
-      .catch((err) => {
-        alert(err.message);
-      })
-      .finally(() => setLoader(false));
-  }; */
 
   const handleSubmit = (ev) => {
     ev.preventDefault();
@@ -170,74 +113,12 @@ export default function Signup() {
       .then((data) => {
         setUser(data);
         navigate("/login");
+        snackbar("success", "The user has successfully registered");
       })
       .catch((err) => {
-        console.log(err.message);
+        snackbar("error", err.message);
       });
   };
-
-  /*  const handleSubmit = async (ev) => {
-    ev.preventDefault();
-    setLoader(true);
-
-    const formData = new FormData(ev.target);
-
-    const obj = {};
-    structureClient.forEach((s) => {
-      if (s.type === "boolean") {
-        obj[s.name] = formData.get(s.name) === "on";
-      } else {
-        obj[s.name] = formData.get(s.name);
-      }
-    });
-
-    const validationResult = validate(obj);
-
-    if (validationResult.error) {
-      const validationErrors = validationResult.error.details.map(
-        (e) => e.message
-      );
-      alert(validationErrors.join("\n"));
-      setLoader(false);
-      return; // Exit early if validation fails
-    }
-
-    try {
-      const response = await fetch(
-        `https://api.shipap.co.il/clients/signup?token=0de20742-47dc-11ee-8ead-14dda9d4a5f0`,
-        {
-          credentials: "include",
-          method: "POST",
-          headers: { "Content-type": "application/json" },
-          body: JSON.stringify(obj),
-        }
-      );
-
-      console.log("Response Status:", response.status);
-
-      if (response.ok) {
-        const data = await response.json();
-
-        console.log("Response Data:", data);
-
-        if (data) {
-          setUser(data);
-          navigate("/login");
-        } else {
-          // Handle the case where the response is empty
-          alert("Empty response from the server");
-        }
-      } else {
-        const errorMessage = await response.text();
-        throw new Error(errorMessage);
-      }
-    } catch (err) {
-      console.error("Error:", err);
-      alert(err.message);
-    } finally {
-      setLoader(false);
-    }
-  }; */
 
   return (
     <ThemeProvider theme={isDark ? dark : light}>

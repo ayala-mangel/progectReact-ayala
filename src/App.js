@@ -1,10 +1,11 @@
 import "./App.css";
 import { createContext, useEffect, useLayoutEffect, useState } from "react";
-import Navbar, { RoleType } from "./components/header/Navbar";
+import Navbar from "./components/header/Navbar";
 import Router from "./Router";
 import Loader from "./components/Loader";
-import SnackbarCom from "./components/SnackbarCom";
 import Footer from "./components/footer/Footer";
+import { RoleType } from "./users/roletype";
+import SnackbarCom from "./components/SnackbarCom";
 
 const useEnhancedEffect =
   typeof window !== "undefined" ? useLayoutEffect : useEffect;
@@ -105,12 +106,14 @@ function App() {
         setSearchWord,
       }}
     >
-      <Navbar />
+      <SnackbarCom>
+        <Navbar />
 
-      <Router />
-      {loader && <Loader />}
-      {snackbarText && <SnackbarCom text={snackbarText} />}
-      <Footer />
+        <Router />
+        {loader && <Loader />}
+        {/*  {snackbarText && <SnackbarCom text={snackbarText} />} */}
+        <Footer />
+      </SnackbarCom>
     </GeneralContext.Provider>
   );
 }

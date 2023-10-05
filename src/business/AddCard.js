@@ -18,6 +18,7 @@ import EditCard from "./EditCard";
 import { structureCard } from "./structureCard";
 import { dark, light } from "../components/UI/features/theme";
 import { TOKEN } from "../api/token";
+import { useSnackbar } from "../components/SnackbarCom";
 
 //export const CardContext = createContext();
 
@@ -27,6 +28,7 @@ export default function AddCard() {
   const { setLoader, isDark } = useContext(GeneralContext);
   const navigate = useNavigate();
   const [card, setCard] = useState({});
+  const snackbar = useSnackbar();
 
   /*   const updateCard = (ev) => {
     ev.preventDefault();
@@ -85,12 +87,19 @@ export default function AddCard() {
       .then((data) => {
         setCard(data);
         navigate("/");
+        snackbar("success", "The card has been successfully added");
       })
-      .catch((e) => console.log(e));
+      .catch((err) => snackbar("error", err.message));
   };
 
   return (
-    <ThemeProvider theme={isDark ? dark : light}>
+    <ThemeProvider
+      theme={isDark ? dark : light}
+      sx={{
+        position: "relative",
+        minHeight: 750,
+      }}
+    >
       <Container component="main" maxWidth="md">
         <CssBaseline />
         <Box

@@ -9,10 +9,11 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { Link, useNavigate } from "react-router-dom";
 import { GeneralContext } from "../App";
 import { useContext, useState } from "react";
-import { RoleType } from "../components/header/Navbar";
 import Joi from "joi";
 import { dark, light } from "../components/UI/features/theme";
 import { TOKEN } from "../api/token";
+import { RoleType } from "./roletype";
+import { useSnackbar } from "../components/SnackbarCom";
 
 //const defaultTheme = createTheme();
 
@@ -26,6 +27,7 @@ export default function Login() {
   const navigate = useNavigate();
   const { setUser, setLoader, setRoleType, isDark } =
     useContext(GeneralContext);
+  const snackbar = useSnackbar();
 
   /*  const defaultTheme = createTheme(
     isDark
@@ -105,82 +107,92 @@ export default function Login() {
         } else if (data.admin) {
           setRoleType(RoleType.admin);
         }
-
+        snackbar(
+          "success",
+          `${data.firstName} ${data.lastName} login successfully`
+        );
         navigate("/");
       })
       .catch((err) => {
-        alert(err.message);
+        snackbar("error", err.message);
       })
       .finally(() => setLoader(false));
   };
 
   return (
     <ThemeProvider theme={isDark ? dark : light}>
-      <Container component="main" maxWidth="xs">
-        <CssBaseline />
-        <Box
-          sx={{
-            marginTop: 8,
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-          }}
-        >
-          <Typography component="h1" variant="h5">
-            Log-In
-          </Typography>
+      <Box
+        sx={{
+          position: "relative",
+          minHeight: 750,
+        }}
+      >
+        <Container component="main" maxWidth="xs">
+          <CssBaseline />
           <Box
-            component="form"
-            onSubmit={handleSubmit}
-            noValidate
-            sx={{ mt: 1 }}
+            sx={{
+              marginTop: 8,
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+            }}
           >
-            <TextField
-              error={Boolean(errors.email)}
-              helperText={errors.email}
-              margin="normal"
-              required
-              fullWidth
-              id="email"
-              label="Email Address"
-              name="email"
-              autoComplete="email"
-              autoFocus
-              onChange={handelChange}
-              value={formData.email}
-            />
-            <TextField
-              error={Boolean(errors.password)}
-              helperText={errors.password}
-              margin="normal"
-              required
-              fullWidth
-              name="password"
-              label="Password"
-              type="password"
-              id="password"
-              autoComplete="current-password"
-              onChange={handelChange}
-              value={formData.password}
-            />
-
-            <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              disabled={!isFormValid}
-              sx={{ mt: 3, mb: 2 }}
+            <Typography component="h1" variant="h5">
+              Log-In
+            </Typography>
+            <Box
+              component="form"
+              onSubmit={handleSubmit}
+              noValidate
+              sx={{ mt: 1 }}
             >
-              Login
-            </Button>
-            <Grid container justifyContent="center">
-              <Grid item>
-                <Link to="/signup">Don't have an account? Sign-Up</Link>
+              <TextField
+                error={Boolean(errors.email)}
+                helperText={errors.email}
+                margin="normal"
+                required
+                fullWidth
+                id="email"
+                label="Email Address"
+                name="email"
+                autoComplete="email"
+                autoFocus
+                onChange={handelChange}
+                value={formData.email}
+              />
+              <TextField
+                error={Boolean(errors.password)}
+                helperText={errors.password}
+                margin="normal"
+                required
+                fullWidth
+                name="password"
+                label="Password"
+                type="password"
+                id="password"
+                autoComplete="current-password"
+                onChange={handelChange}
+                value={formData.password}
+              />
+
+              <Button
+                type="submit"
+                fullWidth
+                variant="contained"
+                disabled={!isFormValid}
+                sx={{ mt: 3, mb: 2 }}
+              >
+                Login
+              </Button>
+              <Grid container justifyContent="center">
+                <Grid item>
+                  <Link to="/signup">Don't have an account? Sign-Up</Link>
+                </Grid>
               </Grid>
-            </Grid>
+            </Box>
           </Box>
-        </Box>
-      </Container>
+        </Container>
+      </Box>
     </ThemeProvider>
   );
 }

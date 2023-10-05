@@ -1,17 +1,12 @@
 import { CardActions, IconButton } from "@mui/joy";
 import React, { useContext } from "react";
 import RemoveCard from "../../business/RemoveCard";
-import { Link, useNavigate } from "react-router-dom";
-import { Favorite } from "@mui/icons-material";
+import { useNavigate } from "react-router-dom";
 import EditIcon from "@mui/icons-material/Edit";
 import { GeneralContext } from "../../App";
-import EditCard from "../../business/EditCard";
 import AddFavoriteCard from "./AddFavoriteCard";
-import {
-  RoleType,
-  checkPermissions,
-  checkAllPermissions,
-} from "../header/Navbar";
+import { RoleType } from "../../users/roletype";
+import { checkAllPermissions } from "../../users/permissions";
 
 export default function IconsCard({ card }) {
   const { userPermissions } = useContext(GeneralContext);

@@ -13,6 +13,7 @@ import { useLocation } from "react-router-dom";
 import { structureCard } from "./structureCard";
 import { dark, light } from "../components/UI/features/theme";
 import { TOKEN } from "../api/token";
+import { useSnackbar } from "../components/SnackbarCom";
 
 //const defaultTheme = createTheme();
 
@@ -22,6 +23,7 @@ export default function EditCard() {
   const [editCard, setEditCard] = useState(state || getDefaultCardState());
   const navigate = useNavigate();
   const { setLoader, isDark } = useContext(GeneralContext);
+  const snackbar = useSnackbar();
 
   /*   const defaultTheme = createTheme(
     isDark
@@ -72,7 +74,7 @@ export default function EditCard() {
     })
       .then((data) => {
         console.log("API Response:", data);
-        //snackbar();
+        snackbar("success", "The card was successfully issued");
         setEditCard(editCard);
         //onSave(editCard);
         navigate("/");
@@ -81,7 +83,13 @@ export default function EditCard() {
   };
 
   return (
-    <ThemeProvider theme={isDark ? dark : light}>
+    <ThemeProvider
+      theme={isDark ? dark : light}
+      sx={{
+        position: "relative",
+        minHeight: 750,
+      }}
+    >
       <Container component="main" maxWidth="md">
         <CssBaseline />
         <Box

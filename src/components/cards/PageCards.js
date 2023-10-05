@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { Container, Typography } from "@mui/material";
+import { Box, Container, Typography } from "@mui/material";
 import { GeneralContext } from "../../App";
 import Cards from "./Cards";
 import { useColorScheme } from "@mui/joy/styles";
@@ -49,13 +49,19 @@ export default function PageCards({ card }) {
 
   return (
     //<ThemeProvider theme={isDark ? dark : light}>
-
-    <Container sx={{ margin: "auto", alignItems: "center" }}>
-      <Typography variant="h2" sx={{ textAlign: "center" }}>
-        All Cards
-      </Typography>
-      <Cards card={card} />
-    </Container>
+    <Box
+      sx={{
+        position: "relative",
+        minHeight: 750,
+      }}
+    >
+      <Container sx={{ margin: "auto", alignItems: "center" }}>
+        <Typography variant="h2" sx={{ textAlign: "center" }}>
+          All Cards
+        </Typography>
+        <Cards card={card} />
+      </Container>
+    </Box>
     //</ThemeProvider>
   );
 }

@@ -31,7 +31,7 @@ export default function Cards() {
       .finally(() => {
         setLoader(false);
       });
-  }, [setCards, setLoader]);
+  }, []);
 
   console.log(cards);
 

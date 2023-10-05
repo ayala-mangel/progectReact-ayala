@@ -3,9 +3,11 @@ import { GeneralContext } from "../App";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { useLocation } from "react-router-dom";
 import { TOKEN } from "../api/token";
+import { useSnackbar } from "../components/SnackbarCom";
 
 export default function RemoveCard({ card }) {
   const { setLoader, cards, setCards } = useContext(GeneralContext);
+  const snackbar = useSnackbar();
 
   const remove = async (id) => {
     if (!window.confirm("Delete the card")) {
@@ -28,8 +30,9 @@ export default function RemoveCard({ card }) {
           const updatedCards = cards.filter((x) => x.id !== id);
           setCards(updatedCards);
         }
+        snackbar("success", "Card deleted successfully");
       } else {
-        console.error("Failed to delete the card");
+        snackbar("error", "Failed to delete the card");
       }
     } catch (error) {
       console.error("An error occurred while deleting the card:", error);

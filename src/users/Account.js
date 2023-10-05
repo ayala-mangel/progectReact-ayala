@@ -22,21 +22,6 @@ const defaultTheme = createTheme();
 export default function Account() {
   const navigate = useNavigate();
   const { user, setUser, setLoader, isDark } = useContext(GeneralContext);
-
-  /*   const defaultTheme = createTheme(
-    isDark
-      ? {
-          palette: {
-            mode: "dark",
-          },
-        }
-      : {
-          palette: {
-            mode: "light",
-          },
-        }
-  ); */
-
   /* const handleSubmit = (ev) => {
     ev.preventDefault();
     const obj = {};
@@ -151,9 +136,6 @@ export default function Account() {
               alignItems: "center",
             }}
           >
-            {/* <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
-              <LockOutlinedIcon />
-            </Avatar> */}
             <Typography component="h1" variant="h5">
               Update Account
             </Typography>

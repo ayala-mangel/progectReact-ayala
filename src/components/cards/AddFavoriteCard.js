@@ -5,11 +5,13 @@ import React, { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { GeneralContext } from "../../App";
 import { TOKEN } from "../../api/token";
+import { useSnackbar } from "../SnackbarCom";
 
 export default function AddFavoriteCard({ card }) {
   const [isLike, setIsLike] = useState(false);
 
-  const { setLoader, setCards, cards } = useContext(GeneralContext);
+  const { setLoader } = useContext(GeneralContext);
+  const snackbar = useSnackbar();
 
   useEffect(() => {
     if (!card) return;
@@ -28,12 +30,22 @@ export default function AddFavoriteCard({ card }) {
       method: "PUT",
     })
       .then((res) => {
+        if (isLike) {
+          snackbar("success", "The card has been removed from favorites");
+        } else {
+          snackbar(
+            "success",
+            "The card has been successfully added to favorites"
+          );
+        }
+
         if (!res.ok) {
           throw new Error("Network response was not ok");
         }
       })
       .catch((error) => {
-        console.error("API Error:", error);
+        snackbar("error", error.message);
+        //  console.error("API Error:", error);
       });
     /*  .finally(() => setLoader(false)); */
   };
@@ -50,8 +62,6 @@ export default function AddFavoriteCard({ card }) {
         zIndex: 2,
         borderRadius: "50%",
         right: "1rem",
-        //  bottom: 0,
-        //   transform: "translateY(50%)",
         scale: 1.5,
       }}
       onClick={like}
