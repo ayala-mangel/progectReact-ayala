@@ -1,26 +1,19 @@
-import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import Checkbox from "@mui/material/Checkbox";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
-import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
-import { Link, useNavigate, useParams } from "react-router-dom";
-import { createContext, useContext, useEffect, useState } from "react";
+import { ThemeProvider } from "@mui/material/styles";
+import { useNavigate } from "react-router-dom";
+import { useContext, useState } from "react";
 import { GeneralContext } from "../App";
-import { Switch } from "@mui/material";
 import EditCard from "./EditCard";
 import { structureCard } from "./structureCard";
 import { dark, light } from "../components/UI/features/theme";
 import { TOKEN } from "../api/token";
 import { useSnackbar } from "../components/SnackbarCom";
-
-//export const CardContext = createContext();
 
 export default function AddCard() {
   const [isEdit, setIsEdit] = useState(false);
@@ -29,34 +22,6 @@ export default function AddCard() {
   const navigate = useNavigate();
   const [card, setCard] = useState({});
   const snackbar = useSnackbar();
-
-  /*   const updateCard = (ev) => {
-    ev.preventDefault();
-
-    setLoader(true);
-
-    fetch(
-      "https://api.shipap.co.il/business/cards" +
-        (card.id
-          ? `/${id}?token=0de20742-47dc-11ee-8ead-14dda9d4a5f0`
-          : `?token=0de20742-47dc-11ee-8ead-14dda9d4a5f0`),
-      {
-        credentials: "include",
-        method: card.id ? "PUT" : "POST",
-        headers: { "Content-type": "application/json" },
-        body: JSON.stringify(card),
-      }
-    )
-      .then(() => {
-        if (card.id) {
-          // snackbar("saved"); 
-        } else {
-          // snackbar(); 
-        }
-        navigate("/");
-      })
-      .finally(() => setLoader(false));
-  }; */
 
   const handleEditClick = (cardData) => {
     setIsEdit(true);
@@ -93,13 +58,7 @@ export default function AddCard() {
   };
 
   return (
-    <ThemeProvider
-      theme={isDark ? dark : light}
-      sx={{
-        position: "relative",
-        minHeight: 750,
-      }}
-    >
+    <ThemeProvider theme={isDark ? dark : light}>
       <Container component="main" maxWidth="md">
         <CssBaseline />
         <Box

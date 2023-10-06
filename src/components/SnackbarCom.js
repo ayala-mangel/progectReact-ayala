@@ -1,20 +1,6 @@
-import React, {
-  createContext,
-  forwardRef,
-  useCallback,
-  useContext,
-  useState,
-} from "react";
-import Stack from "@mui/material/Stack";
-import Button from "@mui/material/Button";
+import React, { createContext, useCallback, useContext, useState } from "react";
 import Snackbar from "@mui/material/Snackbar";
-import MuiAlert from "@mui/material/Alert";
-import { Alert, IconButton } from "@mui/material";
-import CloseIcon from "@mui/icons-material/Close";
-
-/* const Alert = forwardRef(function Alert(props, ref) {
-  return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
-}); */
+import { Alert } from "@mui/material";
 
 const SnackbarContext = createContext(null);
 
@@ -23,10 +9,6 @@ export default function SnackbarCom({ children }) {
   const [color, setColor] = useState("success");
   const [variant, setVariant] = useState("filled");
   const [message, setMessage] = useState("in snackbar!");
-
-  /* const handleClick = () => {
-    setOpen(true);
-  }; */
 
   const handleClose = (event, reason) => {
     if (reason === "clickaway") {
@@ -46,55 +28,18 @@ export default function SnackbarCom({ children }) {
     [setOpen, setColor, setMessage, setVariant]
   );
 
-  console.log(":", 5000);
-
   return (
     <>
-      {/*   <Button variant="outlined" onClick={handleClick}>
-        Open success snackbar
-      </Button> */}
       <Snackbar
         open={open}
         autoHideDuration={5000}
         onClose={() => setOpen(false)}
         anchorOrigin={{ vertical: "top", horizontal: "right" }}
       >
-        <Alert
-          onClose={handleClose}
-          severity={color}
-          variant={variant}
-          /*    sx={{
-            width: "100%",
-            minWidth: 250,
-            marginLeft: -125,
-            backgroundColor: "#333",
-            color: "#fff",
-            textAlign: "center",
-            borderRadius: 2,
-            padding: 16,
-            position: "fixed",
-            zIndex: 1,
-            left: "50%",
-            bottom: 30,
-            fontSize: 17,
-          }} */
-        >
-          {/*     <IconButton
-            aria-label="close"
-            onClick={handleClose}
-            sx={{
-              position: "absolute",
-              right: 8,
-              top: 8,
-              color: (theme) => theme.palette.grey[500],
-            }}
-          >
-            <CloseIcon />
-          </IconButton> */}
+        <Alert onClose={handleClose} severity={color} variant={variant}>
           {message}
         </Alert>
       </Snackbar>
-
       <SnackbarContext.Provider value={setSnack}>
         {children}
       </SnackbarContext.Provider>

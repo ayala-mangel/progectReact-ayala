@@ -12,8 +12,6 @@ export default function IconsCard({ card }) {
   const { userPermissions } = useContext(GeneralContext);
   const navigate = useNavigate();
 
-  //  console.log(setUserPermissions);
-
   const checkRoleType = checkAllPermissions(userPermissions, [
     RoleType.bussiness,
     RoleType.admin,
@@ -27,7 +25,6 @@ export default function IconsCard({ card }) {
   return (
     <CardActions sx={{ pt: 0, justifyContent: "space-between" }}>
       {checkRoleTypeLike && <AddFavoriteCard card={card} />}
-      {/* <Link to={`/business/cards/${card.id}`} state={card}> */}
       {checkRoleType && (
         <IconButton
           className="icon"
@@ -40,8 +37,6 @@ export default function IconsCard({ card }) {
             zIndex: 2,
             borderRadius: "50%",
             right: "3.2rem",
-            //  bottom: 0,
-            //transform: "translateY(50%)",
           }}
           onClick={() =>
             navigate(`/business/cards/${card.id}`, { state: card })

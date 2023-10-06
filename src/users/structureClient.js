@@ -96,7 +96,7 @@ export const structureClient = [
     name: "business",
     type: "boolean",
     label: "business",
-    required: true,
+    required: false,
     block: false,
   },
 ];

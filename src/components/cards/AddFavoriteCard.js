@@ -1,8 +1,6 @@
 import { Favorite } from "@mui/icons-material";
 import { IconButton } from "@mui/joy";
-import { hover } from "@testing-library/user-event/dist/hover";
 import React, { useContext, useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
 import { GeneralContext } from "../../App";
 import { TOKEN } from "../../api/token";
 import { useSnackbar } from "../SnackbarCom";
@@ -31,7 +29,7 @@ export default function AddFavoriteCard({ card }) {
     })
       .then((res) => {
         if (isLike) {
-          snackbar("success", "The card has been removed from favorites");
+          snackbar("warning", "The card has been removed from favorites");
         } else {
           snackbar(
             "success",
@@ -45,9 +43,9 @@ export default function AddFavoriteCard({ card }) {
       })
       .catch((error) => {
         snackbar("error", error.message);
-        //  console.error("API Error:", error);
-      });
-    /*  .finally(() => setLoader(false)); */
+        console.error("API Error:", error);
+      })
+      .finally(() => setLoader(false));
   };
 
   return (

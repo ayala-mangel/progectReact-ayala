@@ -8,8 +8,8 @@ import EditCard from "./business/EditCard";
 import FavCards from "./pages/FavCards";
 import MyCards from "./pages/MyCards";
 import Account from "./users/Account";
-import Cards from "./components/cards/Cards";
 import PageCards from "./components/cards/PageCards";
+import DetailsCard from "./pages/DetailsCard";
 
 export default function Router() {
   return (
@@ -27,6 +27,8 @@ export default function Router() {
       <Route path="/fav-cards" element={<FavCards />} />
 
       <Route path="/account" element={<Account />} />
+
+      <Route path="/cards/:id" element={<DetailsCard />} />
     </Routes>
   );
 }

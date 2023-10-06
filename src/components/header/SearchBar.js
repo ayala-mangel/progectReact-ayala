@@ -3,12 +3,10 @@ import {
   FormControl,
   IconButton,
   InputAdornment,
-  InputBase,
   OutlinedInput,
 } from "@mui/material";
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
 import SearchIcon from "@mui/icons-material/Search";
-import { styled, alpha } from "@mui/material/styles";
 import { GeneralContext } from "../../App";
 
 export const search = (searchWord, ...values) => {

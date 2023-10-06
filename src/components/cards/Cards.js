@@ -1,20 +1,15 @@
 import React, { useContext, useEffect } from "react";
 import ComponentCard from "./ComponentCard";
-import {
-  Container,
-  Grid,
-  SpeedDial,
-  SpeedDialIcon,
-  Typography,
-} from "@mui/material";
-import { useNavigate } from "react-router-dom";
+import { Container, Grid } from "@mui/material";
 import { GeneralContext } from "../../App";
 import { search } from "../header/SearchBar";
 import { TOKEN } from "../../api/token";
+import { useSnackbar } from "../SnackbarCom";
 
 export default function Cards() {
-  const { cards, roleType, userPermissions, searchWord, setCards, setLoader } =
+  const { cards, userPermissions, searchWord, setCards, setLoader } =
     useContext(GeneralContext);
+  const snackbar = useSnackbar();
 
   useEffect(() => {
     setLoader(true);
@@ -26,14 +21,12 @@ export default function Cards() {
         setCards(data);
       })
       .catch((err) => {
-        console.log("No Cards Availible");
+        snackbar("error", `No Cards Availible: ${err}`);
       })
       .finally(() => {
         setLoader(false);
       });
   }, []);
-
-  console.log(cards);
 
   return (
     <Container sx={{ margin: "auto", alignItems: "center" }}>
@@ -47,7 +40,6 @@ export default function Cards() {
               <ComponentCard
                 key={card.id}
                 card={card}
-                //roleType={roleType}
                 userPermissions={userPermissions}
               />
             </Grid>

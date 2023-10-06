@@ -1,20 +1,16 @@
 import React, { useContext, useState } from "react";
 import {
-  Avatar,
   Button,
   CssBaseline,
   TextField,
   FormControlLabel,
-  Checkbox,
   Grid,
   Box,
   Typography,
   Container,
-  createTheme,
   ThemeProvider,
   Switch,
 } from "@mui/material";
-import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import { Link, useNavigate } from "react-router-dom";
 import Joi from "joi";
 import { GeneralContext } from "../App";
@@ -24,10 +20,12 @@ import { TOKEN } from "../api/token";
 import { useSnackbar } from "../components/SnackbarCom";
 
 export default function Signup() {
-  const [user, setUser] = useState({});
-  const { setLoader, isDark } = useContext(GeneralContext);
+  const { setUser, setLoader, isDark } = useContext(GeneralContext);
   const navigate = useNavigate();
   const snackbar = useSnackbar();
+  const [formData, setFormData] = useState({});
+  const [errors, setErrors] = useState({});
+  const [isFormValid, setIsFormValid] = useState(false);
 
   const schema = Joi.object({
     firstName: Joi.string()
@@ -64,41 +62,43 @@ export default function Signup() {
     business: Joi.boolean(),
   });
 
-  const validate = (formData) => {
-    return schema.validate(formData, { abortEarly: false });
+  structureClient.forEach((field) => {
+    schema[field.name] = field.required
+      ? Joi.string().required()
+      : Joi.string().allow("");
+  });
+
+  const handleChange = (ev) => {
+    const { name, value } = ev.target;
+    const obj = { ...formData, [name]: value };
+    setFormData(obj);
+
+    const validate = schema.validate(obj, { abortEarly: false });
+    const tempErrors = { ...errors };
+    delete tempErrors[name];
+
+    if (validate.error) {
+      const item = validate.error.details.find((e) => e.context.key === name);
+
+      if (item) {
+        tempErrors[name] = item.message;
+      }
+    }
+
+    setIsFormValid(!validate.error);
+    setErrors(tempErrors);
   };
 
   const handleSubmit = (ev) => {
     ev.preventDefault();
+    const data = new FormData(ev.currentTarget);
     setLoader(true);
 
-    const formData = new FormData(ev.target);
-
-    const obj = {};
-    structureClient.forEach((s) => {
-      if (s.type === "boolean") {
-        obj[s.name] = formData.get(s.name) === "on";
-      } else {
-        obj[s.name] = formData.get(s.name);
-      }
-    });
-
-    const validationResult = validate(obj);
-
-    if (validationResult.error) {
-      const validationErrors = validationResult.error.details.map(
-        (e) => e.message
-      );
-      alert(validationErrors.join("\n"));
-      setLoader(false);
-      return; // Exit early if validation fails
-    }
-    console.log(obj);
     fetch(`https://api.shipap.co.il/clients/signup?${TOKEN}`, {
       credentials: "include",
       method: "POST",
       headers: { "Content-type": "application/json" },
-      body: JSON.stringify(),
+      body: JSON.stringify(formData),
     })
       .then(async (res) => {
         if (res.ok) {
@@ -113,11 +113,15 @@ export default function Signup() {
       .then((data) => {
         setUser(data);
         navigate("/login");
-        snackbar("success", "The user has successfully registered");
+        snackbar(
+          "success",
+          `${data.firstName} ${data.lastName} registered successfully`
+        );
       })
       .catch((err) => {
         snackbar("error", err.message);
-      });
+      })
+      .finally(() => setLoader(false));
   };
 
   return (
@@ -142,24 +146,28 @@ export default function Signup() {
             sx={{ mt: 1 }}
           >
             <Grid container spacing={2}>
-              {structureClient.map((s) => (
-                <Grid key={s.name} item xs={12} sm={s.block ? 12 : 6}>
-                  {s.type === "boolean" ? (
+              {structureClient.map((field) => (
+                <Grid key={field.name} item xs={12} sm={field.block ? 12 : 6}>
+                  {field.type === "boolean" ? (
                     <FormControlLabel
-                      control={<Switch color="primary" name={s.name} />}
-                      label={s.label}
+                      control={<Switch color="primary" name={field.name} />}
+                      label={field.label}
                       labelPlacement="start"
                     />
                   ) : (
                     <TextField
+                      key={field.name}
+                      error={Boolean(errors[field.name])}
+                      helperText={errors[field.name]}
                       margin="normal"
-                      name={s.name}
-                      required={s.required}
+                      required={field.required}
                       fullWidth
-                      id={s.name}
-                      label={s.label}
-                      type={s.type}
-                      autoComplete={s.name}
+                      name={field.name}
+                      label={field.label}
+                      type={field.type}
+                      autoComplete={field.name}
+                      onChange={handleChange}
+                      value={formData[field.name] || ""}
                     />
                   )}
                 </Grid>
@@ -169,6 +177,7 @@ export default function Signup() {
               type="submit"
               fullWidth
               variant="contained"
+              disabled={!isFormValid}
               sx={{ mt: 3, mb: 2 }}
             >
               Sign Up

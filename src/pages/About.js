@@ -1,4 +1,10 @@
-import { Container, Divider, ThemeProvider, Typography } from "@mui/material";
+import {
+  Container,
+  Divider,
+  ImageListItem,
+  ThemeProvider,
+  Typography,
+} from "@mui/material";
 import React, { useContext } from "react";
 import { GeneralContext } from "../App";
 import { dark, light } from "../components/UI/features/theme";
@@ -21,9 +27,9 @@ export default function About() {
           <b>If you do not have an account, you must register: </b> and mark the
           type of user you want to be (regular or business)
         </Typography>
-        <div>
-          <img srcSet="signup.png" alt="signup" />
-        </div>
+        <ImageListItem>
+          <img src="signup.png" alt="signup" />
+        </ImageListItem>
         <Typography variant="h6">
           <b>
             If and when you have an account, you must connect to your account by

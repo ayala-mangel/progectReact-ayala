@@ -1,30 +1,21 @@
-import React, { useContext } from "react";
-
 import CardContent from "@mui/joy/CardContent";
 import CardOverflow from "@mui/joy/CardOverflow";
 import Divider from "@mui/joy/Divider";
 import Typography from "@mui/joy/Typography";
-import IconButton from "@mui/joy/IconButton";
-import Favorite from "@mui/icons-material/Favorite";
 import AspectRatio from "@mui/joy/AspectRatio";
-import { Link, useNavigate } from "react-router-dom";
-import EditIcon from "@mui/icons-material/Edit";
-import { sizing } from "@mui/system";
-import DeleteIcon from "@mui/icons-material/Delete";
-import RemoveCard from "../../business/RemoveCard";
+import { useNavigate } from "react-router-dom";
 import { CardHeader } from "@mui/material";
 import { Box, Card } from "@mui/joy";
 import IconsCard from "./IconsCard";
-import { GeneralContext } from "../../App";
 
 export default function ComponentCard({ card }) {
   const navigate = useNavigate();
-  const { userPermissions, roleType } = useContext(GeneralContext);
+
   /*  const cardImage =
     card.imgUrl.length > 8
       ? card.ImgUrl
       : "https://i.ibb.co/Hn3fFRD/no-image-icon-23494.png"; */
-  // console.log(card);
+
   return (
     <Card
       variant="outlined"
@@ -48,22 +39,21 @@ export default function ComponentCard({ card }) {
           sx={{
             flexGrow: 1,
           }}
+          onClick={() => navigate(`/cards/${card.id}`, { state: card })}
         >
           <img
             src={card.imgUrl}
             style={{ width: "100%", aspectRatio: "16/9", objectFit: "cover" }}
-            /* srcSet="https://images.unsplash.com/photo-1532614338840-ab30cf10ed36?auto=format&fit=crop&w=318&dpr=2 2x" */
             loading="lazy"
             alt={card.imgAlt}
           />
         </AspectRatio>
-        <IconsCard
-          card={card}
-          //roleType={roleType}
-          //permissions={userPermissions}
-        />
+        <IconsCard card={card} />
       </CardOverflow>
-      <CardContent sx={{ pb: 1 }}>
+      <CardContent
+        sx={{ pb: 1 }}
+        onClick={() => navigate(`/cards/${card.id}`, { state: card })}
+      >
         <CardHeader
           title={card.title}
           subheader={card.subtitle}
@@ -85,14 +75,6 @@ export default function ComponentCard({ card }) {
           </Typography>
         </Box>
       </CardContent>
-      {/* <CardOverflow variant="soft">
-        <Divider inset="context" />
-        <CardContent orientation="horizontal">
-          <Typography level="body-xs">6.3k views</Typography>
-          <Divider orientation="vertical" />
-          <Typography level="body-xs">1 hour ago</Typography>
-        </CardContent>
-      </CardOverflow> */}
     </Card>
   );
 }

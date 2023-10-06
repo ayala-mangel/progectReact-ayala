@@ -1,72 +1,25 @@
-import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
-import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
+import { ThemeProvider } from "@mui/material/styles";
 import { useNavigate } from "react-router-dom";
 import { useContext } from "react";
 import { GeneralContext } from "../App";
 import Switch from "@mui/material/Switch";
-import { FormControlLabel, snackbarClasses } from "@mui/material";
+import { FormControlLabel } from "@mui/material";
 import { structureClient } from "./structureClient";
 import { dark, light } from "../components/UI/features/theme";
 import { TOKEN } from "../api/token";
-
-const defaultTheme = createTheme();
+import { useSnackbar } from "../components/SnackbarCom";
 
 export default function Account() {
   const navigate = useNavigate();
   const { user, setUser, setLoader, isDark } = useContext(GeneralContext);
-  /* const handleSubmit = (ev) => {
-    ev.preventDefault();
-    const obj = {};
-    const elements = ev.target.elements;
-
-    structureClient
-      .filter((s) => !s.initialOnly)
-      .forEach((s) => {
-        if (s.type === "boolean") {
-          obj[s.name] = elements[s.name].checked;
-        } else {
-          obj[s.name] = elements[s.name].value;
-        }
-      });
-
-    setLoader(true);
-
-    fetch(
-      `https://api.shipap.co.il/clients/update?token=0de20742-47dc-11ee-8ead-14dda9d4a5f0`,
-      {
-        credentials: "include",
-        method: "PUT",
-        headers: { "Content-type": "application/json" },
-        body: JSON.stringify(obj),
-      }
-    )
-      .then((res) => {
-        if (res.ok) {
-          alert("Update successful");
-        } else {
-          console.error("Update failed", res.status);
-          const isJsonResponse = res.headers
-            .get("content-type")
-            ?.includes("application/json");
-          if (isJsonResponse) {
-            console.error("Error Data:", res.json());
-          } else {
-            console.error("Non-JSON response:", res.text());
-          }
-          // res.json();
-        }
-      })
-      .catch((err) => console.error("Update error:", err))
-      .finally(() => setLoader(false));
-  }; */
+  const snackbar = useSnackbar();
 
   const handleSubmit = async (ev) => {
     ev.preventDefault();
@@ -97,13 +50,10 @@ export default function Account() {
       );
 
       if (response.ok) {
-        // Handle success, e.g., show a success message or redirect to another page.
-        snackbarClasses("sucsses");
+        snackbar("sucsses", "your profile edit succesfully");
       } else {
-        // Handle error, log the error details.
+        snackbar("error", "Update failed");
         console.error("Update failed. Status:", response.status);
-
-        // Check if the response contains JSON data before parsing.
         const isJsonResponse = response.headers
           .get("content-type")
           ?.includes("application/json");
@@ -116,7 +66,6 @@ export default function Account() {
         }
       }
     } catch (error) {
-      // Handle network or other errors.
       console.error("Update error:", error);
     } finally {
       setLoader(false);

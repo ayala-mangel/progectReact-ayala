@@ -4,7 +4,6 @@ import { BottomNavigationAction, Paper } from "@mui/material";
 import BottomNavigation from "@mui/material/BottomNavigation";
 import { useContext } from "react";
 import FavoriteIcon from "@mui/icons-material/Favorite";
-
 import InfoIcon from "@mui/icons-material/Info";
 import PortraitIcon from "@mui/icons-material/Portrait";
 
@@ -21,7 +20,6 @@ export default function Footer() {
         bottom: 0,
         left: 0,
         right: 0,
-        // justifyContent: "space-between",
         justifyContent: "center",
         display: "block",
       }}

@@ -5,7 +5,7 @@ import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
+import { ThemeProvider } from "@mui/material/styles";
 import { Link, useNavigate } from "react-router-dom";
 import { GeneralContext } from "../App";
 import { useContext, useState } from "react";
@@ -14,8 +14,6 @@ import { dark, light } from "../components/UI/features/theme";
 import { TOKEN } from "../api/token";
 import { RoleType } from "./roletype";
 import { useSnackbar } from "../components/SnackbarCom";
-
-//const defaultTheme = createTheme();
 
 export default function Login() {
   const [formData, setFormData] = useState({
@@ -28,20 +26,6 @@ export default function Login() {
   const { setUser, setLoader, setRoleType, isDark } =
     useContext(GeneralContext);
   const snackbar = useSnackbar();
-
-  /*  const defaultTheme = createTheme(
-    isDark
-      ? {
-          palette: {
-            mode: "dark",
-          },
-        }
-      : {
-          palette: {
-            mode: "light",
-          },
-        }
-  ); */
 
   const schema = Joi.object({
     email: Joi.string().email({ tlds: false }).required(),
@@ -75,9 +59,9 @@ export default function Login() {
     setErrors(tempErrors);
   };
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
+  const handleSubmit = (ev) => {
+    ev.preventDefault();
+    const data = new FormData(ev.currentTarget);
     setLoader(true);
 
     fetch(`https://api.shipap.co.il/clients/login?${TOKEN}`, {

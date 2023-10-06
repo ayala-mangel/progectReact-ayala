@@ -1,7 +1,6 @@
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
 import { GeneralContext } from "../App";
 import DeleteIcon from "@mui/icons-material/Delete";
-import { useLocation } from "react-router-dom";
 import { TOKEN } from "../api/token";
 import { useSnackbar } from "../components/SnackbarCom";
 
@@ -16,7 +15,6 @@ export default function RemoveCard({ card }) {
     setLoader(true);
 
     try {
-      // Send a DELETE request to the server to delete the card
       const response = await fetch(
         `https://api.shipap.co.il/business/cards/${id}?${TOKEN}`,
         {
@@ -25,7 +23,6 @@ export default function RemoveCard({ card }) {
         }
       );
       if (response.ok) {
-        // Remove the card from the list of cards if it exists
         if (cards && Array.isArray(cards)) {
           const updatedCards = cards.filter((x) => x.id !== id);
           setCards(updatedCards);

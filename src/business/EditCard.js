@@ -1,7 +1,7 @@
 import React, { useContext, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { GeneralContext } from "../App";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
+import { ThemeProvider } from "@mui/material/styles";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { Box } from "@mui/material";
@@ -15,8 +15,6 @@ import { dark, light } from "../components/UI/features/theme";
 import { TOKEN } from "../api/token";
 import { useSnackbar } from "../components/SnackbarCom";
 
-//const defaultTheme = createTheme();
-
 export default function EditCard() {
   const { id } = useParams();
   let { state } = useLocation();
@@ -25,20 +23,6 @@ export default function EditCard() {
   const { setLoader, isDark } = useContext(GeneralContext);
   const snackbar = useSnackbar();
 
-  /*   const defaultTheme = createTheme(
-    isDark
-      ? {
-          palette: {
-            mode: "dark",
-          },
-        }
-      : {
-          palette: {
-            mode: "light",
-          },
-        }
-  ); */
-
   const handelInput = (event) => {
     const { name, value } = event.target;
     setEditCard({
@@ -46,20 +30,6 @@ export default function EditCard() {
       [name]: value,
     });
   };
-
-  /*  useEffect(() => {
-    setLoader(true);
-
-    fetch(
-      `https://api.shipap.co.il/business/cards/${id}?token=0de20742-47dc-11ee-8ead-14dda9d4a5f0`,
-      {
-        credentials: "include",
-      }
-    )
-      .then((res) => res.json())
-      .then((data) => setCard(data))
-      .finally(() => setLoader(false));
-  }, [id, setLoader]); */
 
   const updateCard = (ev) => {
     ev.preventDefault();
@@ -76,7 +46,6 @@ export default function EditCard() {
         console.log("API Response:", data);
         snackbar("success", "The card was successfully issued");
         setEditCard(editCard);
-        //onSave(editCard);
         navigate("/");
       })
       .finally(() => setLoader(false));
