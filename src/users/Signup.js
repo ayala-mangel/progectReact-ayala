@@ -58,7 +58,7 @@ export default function Signup() {
     city: Joi.string().min(3).max(20).required(),
     street: Joi.string().min(3).max(20).required(),
     houseNumber: Joi.number().min(3).max(20).required(),
-    postalCode: Joi.number().min(3),
+    zip: Joi.number().min(3),
     business: Joi.boolean(),
   });
 
@@ -72,6 +72,7 @@ export default function Signup() {
     const { name, value } = ev.target;
     const obj = { ...formData, [name]: value };
     setFormData(obj);
+    console.log(obj);
 
     const validate = schema.validate(obj, { abortEarly: false });
     const tempErrors = { ...errors };
@@ -91,15 +92,18 @@ export default function Signup() {
 
   const handleSubmit = (ev) => {
     ev.preventDefault();
-    const data = new FormData(ev.currentTarget);
+    /* const data = new FormData(ev.currentTarget); */
     setLoader(true);
 
-    fetch(`https://api.shipap.co.il/clients/signup?${TOKEN}`, {
-      credentials: "include",
-      method: "POST",
-      headers: { "Content-type": "application/json" },
-      body: JSON.stringify(formData),
-    })
+    fetch(
+      `https://api.shipap.co.il/clients/signup?token=0de20742-47dc-11ee-8ead-14dda9d4a5f0`,
+      {
+        credentials: "include",
+        method: "POST",
+        headers: { "Content-type": "application/json" },
+        body: JSON.stringify(formData),
+      }
+    )
       .then(async (res) => {
         if (res.ok) {
           console.log(res.status);
@@ -150,7 +154,14 @@ export default function Signup() {
                 <Grid key={field.name} item xs={12} sm={field.block ? 12 : 6}>
                   {field.type === "boolean" ? (
                     <FormControlLabel
-                      control={<Switch color="primary" name={field.name} />}
+                      control={
+                        <Switch
+                          color="primary"
+                          name={field.name}
+                          onChange={handleChange}
+                          value={formData[field.name] || false}
+                        />
+                      }
                       label={field.label}
                       labelPlacement="start"
                     />

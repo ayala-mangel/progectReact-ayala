@@ -86,9 +86,9 @@ export const structureClient = [
     block: false,
   },
   {
-    name: "postalCode",
+    name: "zip",
     type: "number",
-    label: "postal-code",
+    label: "zip",
     required: false,
     block: false,
   },
