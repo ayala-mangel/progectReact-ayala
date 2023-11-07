@@ -43,7 +43,6 @@ export default function EditCard() {
       body: JSON.stringify(editCard),
     })
       .then((data) => {
-        console.log("API Response:", data);
         snackbar("success", "The card was successfully issued");
         setEditCard(editCard);
         navigate("/");
@@ -52,13 +51,7 @@ export default function EditCard() {
   };
 
   return (
-    <ThemeProvider
-      theme={isDark ? dark : light}
-      sx={{
-        position: "relative",
-        minHeight: 750,
-      }}
-    >
+    <ThemeProvider theme={isDark ? dark : light}>
       <Container component="main" maxWidth="md">
         <CssBaseline />
         <Box
