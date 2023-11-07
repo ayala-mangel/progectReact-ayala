@@ -10,5 +10,12 @@ Development Environment
 
 Initial setup
 
+To run a dev env the following libraries/applications need to be installed on your host:
 
+	*Material-UI = https://mui.com/material-ui/getting-started/installation/
 
+*npm install @mui/material @emotion/react @emotion/styled*
+ 
+ 	*Joy-UI = https://mui.com/joy-ui/getting-started/installation/
+
+  *npm install @mui/joy @emotion/react @emotion/styled*
