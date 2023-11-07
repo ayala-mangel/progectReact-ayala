@@ -8,18 +8,6 @@ The site administrator can delete users and change the user's status.
 
 Development Environment
 
-Initial setup
+react and use with a library: Material-UI & Joy-UI.
 
-To run a dev env the following libraries/applications need to be installed on your host:
 
-react router dom
-
-	npm i react-router-dom
-
-Material-UI = https://mui.com/material-ui/getting-started/installation/
-
-	npm install @mui/material @emotion/react @emotion/styled
- 
- Joy-UI = https://mui.com/joy-ui/getting-started/installation/
-
-  	npm install @mui/joy @emotion/react @emotion/styled
