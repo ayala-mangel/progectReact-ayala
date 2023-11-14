@@ -9,18 +9,17 @@ import { RoleType } from "../../users/roletype";
 import { checkAllPermissions } from "../../users/permissions";
 
 export default function IconsCard({ card }) {
-  const { userPermissions } = useContext(GeneralContext);
+  const { roleType } = useContext(GeneralContext);
   const navigate = useNavigate();
 
-  const checkRoleType = checkAllPermissions(userPermissions, [
-    RoleType.bussiness,
-    RoleType.admin,
-  ]);
-  const checkRoleTypeLike = checkAllPermissions(userPermissions, [
-    RoleType.bussiness,
-    RoleType.admin,
-    RoleType.user,
-  ]);
+  const checkRoleType = checkAllPermissions(
+    [RoleType.bussiness, RoleType.admin],
+    [roleType]
+  );
+  const checkRoleTypeLike = checkAllPermissions(
+    [RoleType.bussiness, RoleType.admin, RoleType.user],
+    [roleType]
+  );
 
   return (
     <CardActions sx={{ pt: 0, justifyContent: "space-between" }}>

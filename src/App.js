@@ -15,7 +15,6 @@ function App() {
   const [roleType, setRoleType] = useState(RoleType.none);
   const [snackbarText, setSnackbarText] = useState("");
   const [cards, setCards] = useState([]);
-  const [userPermissions, setUserPermissions] = useState([]);
   const [isDark, setIsDark] = useState(false);
   const [searchWord, setSearchWord] = useState("");
 
@@ -40,8 +39,6 @@ function App() {
       .then((data) => {
         setUser(data);
         setRoleType(RoleType.user);
-        // check why the user has no permissions array
-        setUserPermissions([RoleType.bussiness, RoleType.admin, RoleType.user]);
         snackbar(`${data.firstName} logged!`);
 
         if (data.business) {
@@ -67,7 +64,6 @@ function App() {
         setRoleType,
         cards,
         setCards,
-        userPermissions,
         setIsDark,
         isDark,
         searchWord,
