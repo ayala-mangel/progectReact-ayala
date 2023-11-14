@@ -50,7 +50,7 @@ export default function Account() {
       );
 
       if (response.ok) {
-        snackbar("sucsses", "your profile edit succesfully");
+        snackbar("success", "your profile edit succesfully");
       } else {
         snackbar("error", "Update failed");
         console.error("Update failed. Status:", response.status);

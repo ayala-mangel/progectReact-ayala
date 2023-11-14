@@ -23,7 +23,23 @@ export default function Signup() {
   const { setUser, setLoader, isDark } = useContext(GeneralContext);
   const navigate = useNavigate();
   const snackbar = useSnackbar();
-  const [formData, setFormData] = useState({});
+  const [formData, setFormData] = useState({
+    firstName: "",
+    middleName: "",
+    lastName: "",
+    phone: "",
+    email: "",
+    password: "",
+    imgUrl: "",
+    imgAlt: "",
+    state: "",
+    country: "",
+    city: "",
+    street: "",
+    houseNumber: null,
+    zip: null,
+    business: false,
+  });
   const [errors, setErrors] = useState({});
   const [isFormValid, setIsFormValid] = useState(false);
 
@@ -33,7 +49,7 @@ export default function Signup() {
       .min(2)
       .max(50)
       .regex(/^[a-zA-Z0-9]{3,20}$/),
-    middleName: Joi.string().min(2).max(50),
+    middleName: Joi.string().max(50),
     lastName: Joi.string().required().min(2).max(50),
     phone: Joi.number().required(),
     email: Joi.string()
@@ -52,13 +68,13 @@ export default function Signup() {
         "any.required": "Password is required",
       }),
     imgUrl: Joi.string().max(100),
-    imgAlt: Joi.string().min(3).max(20),
-    state: Joi.string().min(3).max(20),
+    imgAlt: Joi.string().max(20),
+    state: Joi.string().max(20),
     country: Joi.string().min(3).max(20).required(),
     city: Joi.string().min(3).max(20).required(),
     street: Joi.string().min(3).max(20).required(),
     houseNumber: Joi.number().min(3).max(20).required(),
-    zip: Joi.number().min(3),
+    zip: Joi.number(),
     business: Joi.boolean(),
   });
 
@@ -85,7 +101,7 @@ export default function Signup() {
         tempErrors[name] = item.message;
       }
     }
-
+    console.log(validate.error);
     setIsFormValid(!validate.error);
     setErrors(tempErrors);
   };
