@@ -10,7 +10,7 @@ import SnackbarCom from "./components/SnackbarCom";
 export const GeneralContext = createContext();
 
 function App() {
-  const [user, setUser] = useState();
+  const [user, setUser] = useState(null);
   const [loader, setLoader] = useState(true);
   const [roleType, setRoleType] = useState(RoleType.none);
   const [snackbarText, setSnackbarText] = useState("");

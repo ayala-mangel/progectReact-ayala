@@ -40,7 +40,7 @@ export default function Navbar() {
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
   };
-
+  console.log(roleType);
   return (
     <AppBar
       position="static"
@@ -97,11 +97,11 @@ export default function Navbar() {
           >
             {/* תפריט המבורגר */}
             {pages
-              .filter(
+              ?.filter(
                 (p) =>
                   !p.permissions || checkPermissions(p.permissions, roleType)
               )
-              .map((page) => (
+              ?.map((page) => (
                 <Link
                   to={page.route}
                   key={page.route}

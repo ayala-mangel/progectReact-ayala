@@ -12,7 +12,7 @@ import {
   Switch,
 } from "@mui/material";
 import { Link, useNavigate } from "react-router-dom";
-import Joi from "joi";
+import Joi, { boolean } from "joi";
 import { GeneralContext } from "../App";
 import { structureClient } from "./structureClient";
 import { dark, light } from "../components/UI/features/theme";

@@ -1,7 +1,16 @@
 import { RoleType } from "../users/roletype";
 
 export const pages = [
-  { route: "/about", title: "About" },
+  {
+    route: "/about",
+    title: "About",
+    permissions: [
+      RoleType.none,
+      RoleType.user,
+      RoleType.bussiness,
+      RoleType.admin,
+    ],
+  },
   { route: "/signup", title: "Sign-Up", permissions: [RoleType.none] },
   { route: "/login", title: "Log-In", permissions: [RoleType.none] },
   {
