@@ -26,7 +26,7 @@ export default function MyCards({ card }) {
         setCards(data);
       })
       .finally(() => setLoader(false));
-  }, [setCards, setLoader]);
+  }, []);
 
   return (
     <Box

@@ -1,32 +1,11 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext } from "react";
 import ComponentCard from "./ComponentCard";
 import { Container, Grid } from "@mui/material";
 import { GeneralContext } from "../../App";
 import { search } from "../header/SearchBar";
-import { TOKEN } from "../../api/token";
-import { useSnackbar } from "../SnackbarCom";
 
 export default function Cards() {
-  const { cards, userPermissions, searchWord, setCards, setLoader } =
-    useContext(GeneralContext);
-  const snackbar = useSnackbar();
-
-  useEffect(() => {
-    setLoader(true);
-    fetch(`https://api.shipap.co.il/cards?${TOKEN}`, {
-      credentials: "include",
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        setCards(data);
-      })
-      .catch((err) => {
-        snackbar("error", `No Cards Availible: ${err}`);
-      })
-      .finally(() => {
-        setLoader(false);
-      });
-  }, []);
+  const { cards, userPermissions, searchWord } = useContext(GeneralContext);
 
   return (
     <Container sx={{ margin: "auto", alignItems: "center" }}>

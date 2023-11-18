@@ -24,7 +24,7 @@ export default function FavCards({ card }) {
         snackbar("error", "There are no favorite cards");
       })
       .finally(() => setLoader(false));
-  }, [setCards, setLoader]);
+  }, []);
 
   return (
     <Box

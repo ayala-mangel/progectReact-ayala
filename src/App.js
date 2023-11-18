@@ -42,7 +42,7 @@ function App() {
         snackbar(`${data.firstName} logged!`);
 
         if (data.business) {
-          setRoleType(RoleType.business);
+          setRoleType(RoleType.bussiness);
         } else if (data.admin) {
           setRoleType(RoleType.admin);
         }
@@ -53,6 +53,10 @@ function App() {
       })
       .finally(() => setLoader(false));
   }, []);
+
+  useEffect(() => {
+    console.log("RoleType", RoleType.bussiness);
+  }, [roleType]);
 
   return (
     <GeneralContext.Provider
